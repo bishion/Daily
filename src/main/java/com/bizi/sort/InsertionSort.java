@@ -49,15 +49,15 @@ public class InsertionSort {
             int left = 0;
             int right = i - 1;
             while (left <= right) {
-                int mid = (left + right)/2;
-                if(arr[mid]>temp){
-                    right = mid -1;
-                }else {
-                    left = mid+1;
+                int mid = (left + right) / 2;
+                if (arr[mid] > temp) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
                 }
             }
-            for (int j=i-1;j>=left;j--){
-                arr[j+1] = arr[j];
+            for (int j = i - 1; j >= left; j--) {
+                arr[j + 1] = arr[j];
             }
             arr[left] = temp;
         }
@@ -65,15 +65,34 @@ public class InsertionSort {
 
     }
 
-    public static void shellSort(int[] arr){
-
+    public static void shellSort(int[] arr) {
+        int h = 0;
+        while (h <= arr.length) {
+            h = 3*h+1;
+        }
+        while (h >= 1) {
+            for (int i = h; i < arr.length; i++) {
+                int j = i - h;
+                int get = arr[i];
+                while (j >= 0 && arr[j] > get) {
+                    arr[j + h] = arr[j];
+                    j = j - h;
+                }
+                arr[j + h] = get;
+            }
+            h = (h - 1) / 3;
+        }
     }
+
     public static void main(String[] args) {
         int arr[] = {9, 8, 7, 6, 1, 3, 45, 0};
         sort(arr);
         System.out.println(JSON.toJSONString(arr));
         arr = new int[]{9, 8, 7, 6, 1, 3, 45, 0};
         dichotomySort(arr);
+        System.out.println(JSON.toJSONString(arr));
+        arr = new int[]{9, 8, 7, 6, 1, 3, 45, 0};
+        shellSort(arr);
         System.out.println(JSON.toJSONString(arr));
     }
 }
